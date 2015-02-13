@@ -1,0 +1,1 @@
+Exploring how one might build a compatibility layer so that Mcrypt API could be used but it actually uses OpenSSL.
