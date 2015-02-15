@@ -24,7 +24,7 @@ the complementary crypto extension.
 The specifications are described by a code string composed as follows
 
 Tag | Description
--- | --
+--- | ---
 `<algo>`   | Mcrypt "algorithm", see `mcrypt_list_algorithms()`
 `<mode>`   | Mcrypt "mode", see `mcrypt_list_modes()`
 `<method>` | OpenSSL "cipher method", see `openssl_get_cipher_methods()`
