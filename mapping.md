@@ -7,6 +7,13 @@ Some ciphers accept variable key lengths, e.g. Blowfish keys can be any size fro
 or 32 bytes. Others, such as DES, allow only one key size. For those ciphers that allow
 different key sizes, I tested the longest allowed.
 
+## Padding
+
+When encrypting in CBC and ECB modes, I padded the Mcrypt input according to PKCS#7 and let OpenSSL 
+pad input automatically (also PKCS#7) using the 
+[`OPENSSL_RAW_DATA` option](http://thefsb.tumblr.com/post/110749271235/using-openssl-en-decrypt-in-php-instead-of). 
+
+
 
 ## Complete compatibility test result map
 
@@ -245,8 +252,3 @@ of the two 8-byte keys K1 and K2. In Mcrypt use 'tripledes' with the 24-byte inp
 [3] I couldn't get Mcrypt's RC2 cypher to agree with OpenSSL's. OpenSSL's output corresponds
 in some ways with the test vectors in RFC-2268. I don't plan to spend to spend more time
 investigating. The `rc2.php` script may be useful if you care about RC2.
-
-When encrypting in CBC and ECB modes, I padded the Mcrypt input according to PKCS#7 and let OpenSSL 
-pad input automatically using the 
-[`OPENSSL_RAW_DATA` option](http://thefsb.tumblr.com/post/110749271235/using-openssl-en-decrypt-in-php-instead-of). 
-
