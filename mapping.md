@@ -1,4 +1,4 @@
-# Results of testing Mcrypt and OpenSSL compatibility.
+# Cipher and mode compatibility map
 
 ## Key lengths
 
@@ -8,7 +8,7 @@ or 32 bytes. Others, such as DES, allow only one key size. For those ciphers tha
 different key sizes, I tested the longest allowed.
 
 
-## Compatibility test results
+## Complete compatibility test result map
 
 Each row represents a test. The First column specifies a cipher on one
 extension and values in second or third columns specify a compatible cipher from
@@ -18,15 +18,21 @@ The specifications are described by a code string composed as follows
 
 Tag | Description
 -- | --
-`<algo>`   | Mcrypt "algorithm", see mcrypt_list_algorithms()
-`<mode>`   | Mcrypt "mode", see mcrypt_list_modes()
-`<method>` | OpenSSL "cipher method", see openssl_get_cipher_methods()
+`<algo>`   | Mcrypt "algorithm", see `mcrypt_list_algorithms()`
+`<mode>`   | Mcrypt "mode", see `mcrypt_list_modes()`
+`<method>` | OpenSSL "cipher method", see `openssl_get_cipher_methods()`
 `<klen>`   | key length used in compatibility test.
 
-For example, the second row means that `mcrypt_module_open('blowfish', '', 'cbc', '')`
-with a 56-byte key was compatible in tests with (i.e. produced the same ciphertext as)
-`openssl_encrypt($plaintext, 'bf-cbc', ...)` with a 56-byte key.
+For example, the second row in the map means that
 
+- `mcrypt_module_open('blowfish', '', 'cbc', '')` with a 56-byte key
+
+tested as compatible with (i.e. produced the same ciphertext as)
+
+- `openssl_encrypt($plaintext, 'bf-cbc', ...)` with a 56-byte key.
+
+Two rows down we see that no compatible OpenSSL encryption was found for Mcrypt's Blowfish in CTR mode.
+(OpenSSL doesn't do CTR at all!)
 
 ```
                  Mcrypt               OpenSSL
@@ -231,15 +237,16 @@ with a 56-byte key was compatible in tests with (i.e. produced the same cipherte
 
 ### Notes
 
-[1] Mcrypt 'blowfish-compat' is Blowfish in little-endian byte order
-http://stackoverflow.com/a/11423057
+[1] Mcrypt 'blowfish-compat' is [Blowfish in little-endian byte order](http://stackoverflow.com/a/11423057)
 
-[2] In OpenSSL to use 2-key tripple-DES, the key input is K1 + K2, i.e. the concatenation
-of the two 8-byte keys K1, K2. In Mcrypt, the key input is 24-bytes, K1 + K2 + K1.
+[2] For 2-key tripple-DES, in OpenSSL use 'des-ede' with the 16-byte input input key K1 + K2, i.e. the concatenation
+of the two 8-byte keys K1 and K2. In Mcrypt use 'tripledes' with the 24-byte input key K1 + K2 + K1.
 
 [3] I couldn't get Mcrypt's RC2 cypher to agree with OpenSSL's. OpenSSL's output corresponds
 in some ways with the test vectors in RFC-2268. I don't plan to spend to spend more time
 investigating. The `rc2.php` script may be useful if you care about RC2.
 
-When encrypting with Mcrypt in CBC and ECB modes, I padded the input according to PKCS#7.
+When encrypting in CBC and ECB modes, I padded the Mcrypt input according to PKCS#7 and let OpenSSL 
+pad input automatically using the 
+[`OPENSSL_RAW_DATA` option](http://thefsb.tumblr.com/post/110749271235/using-openssl-en-decrypt-in-php-instead-of). 
 
