@@ -142,13 +142,13 @@ Two rows down we see that no compatible OpenSSL encryption was found for Mcrypt'
        tripledes:ncfb:8             des-cfb:8
        tripledes:nofb:8             des-ofb:8
         tripledes:ofb:8
-       tripledes:cbc:16        des-ede-cbc:16
-       tripledes:cfb:16
-       tripledes:ctr:16
-       tripledes:ecb:16            des-ede:16
-      tripledes:ncfb:16        des-ede-cfb:16
-      tripledes:nofb:16        des-ede-ofb:16
-       tripledes:ofb:16
+       tripledes:cbc:16        des-ede-cbc:16  [2]
+       tripledes:cfb:16  [2]
+       tripledes:ctr:16  [2]
+       tripledes:ecb:16            des-ede:16  [2]
+      tripledes:ncfb:16        des-ede-cfb:16  [2]
+      tripledes:nofb:16        des-ede-ofb:16  [2]
+       tripledes:ofb:16  [2]
        tripledes:cbc:24       des-ede3-cbc:24
        tripledes:cfb:24      des-ede3-cfb8:24
        tripledes:ctr:24
