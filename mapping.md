@@ -39,7 +39,9 @@ tested as compatible with (i.e. produced the same ciphertext as)
 - `openssl_encrypt($plaintext, 'bf-cbc', ...)` with a 56-byte key.
 
 Two rows down we see that no compatible OpenSSL encryption was found for Mcrypt's Blowfish in CTR mode.
-(OpenSSL doesn't do CTR at all!)
+<s>(OpenSSL doesn't do CTR at all!)</s> **UPDATE** This is wrong. OpenSSL does have CTR but, for
+reasons I don't understand, my PHP didn't list it when I ran these tests. I haven't rerun the tests
+with CTR but you shouldn't have any difficulty making it compatible with Mcrypt.
 
 ```
                  Mcrypt               OpenSSL
